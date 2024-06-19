@@ -4,7 +4,7 @@ import { Separator } from '../ui/separator'
 function CollectionForm() {
 	return (
 		<div className='p-10'>
-			<p className='text-heading2-bold'>CollectionForm</p>
+			<p className='text-heading2-bold'>Collection-Form</p>
 			<Separator className='bg-grey-1 mt-4 mb-7' />
 		</div>
 	)
