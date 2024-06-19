@@ -5,7 +5,7 @@ function CollectionForm() {
 	return (
 		<div className='p-10'>
 			<p className='text-heading2-bold'>CollectionForm</p>
-			<Separator className='my-4' />
+			<Separator className='bg-grey-1 mt-4 mb-7' />
 		</div>
 	)
 }
