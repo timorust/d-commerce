@@ -75,8 +75,8 @@ const config: Config = {
 		extend: {
 			colors: {
 				'white-1': '#F8F8F8',
-				'grey-1': '#dad7cd',
-				'grey-2': '#e5e5e5',
+				'grey-1': '#495057',
+				'grey-2': '#6c757d',
 				'blue-1': '#2a9d8f',
 				'blue-2': '#264653',
 				'blue-3': '#F5F7F9',

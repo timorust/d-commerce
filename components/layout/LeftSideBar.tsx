@@ -18,7 +18,7 @@ export default function LeftSideBar() {
 						href={navLink.url}
 						key={navLink.label}
 						className={`flex gap-4 text-body-medium ${
-							pathname === navLink.url ? 'text-blue-1' : 'text-grey-1'
+							pathname === navLink.url ? 'text-blue-1' : 'text-grey-2'
 						}`}
 					>
 						{navLink.icon} <p>{navLink.label}</p>
