@@ -17,6 +17,9 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import ImageUpload from '../custom ui/ImageUpload'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import toast from 'react-hot-toast'
 
 const formSchema = z.object({
 	title: z.string().min(2).max(50),
@@ -25,6 +28,9 @@ const formSchema = z.object({
 })
 
 function CollectionForm() {
+	const [loading, setLoading] = useState(false)
+	const router = useRouter()
+
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -35,7 +41,22 @@ function CollectionForm() {
 	})
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
-		console.log(values)
+		try {
+			setLoading(true)
+			const res = await fetch('/api/collections', {
+				method: 'POST',
+				body: JSON.stringify(values),
+			})
+
+			if (res.ok) {
+				setLoading(false)
+				toast.success(`Collection created successfully`)
+				router.push('/collections')
+			}
+		} catch (error) {
+			console.error('[collection_POST]', error)
+			toast.error('Something went wrong! Please try again.')
+		}
 	}
 
 	return (
@@ -90,9 +111,17 @@ function CollectionForm() {
 							</FormItem>
 						)}
 					/>
-					<div>
-						<Button type='submit'>Submit</Button>
-						<Button type='submit'>Submit</Button>
+					<div className='flex gap-4'>
+						<Button type='submit' className='bg-green-1 text-white'>
+							Submit
+						</Button>
+						<Button
+							type='button'
+							className='bg-red-1 text-white'
+							onClick={() => router.push('/collection')}
+						>
+							Discard
+						</Button>
 					</div>
 				</form>
 			</Form>

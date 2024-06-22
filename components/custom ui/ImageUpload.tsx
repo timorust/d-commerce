@@ -51,7 +51,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 						<Button
 							type='button'
 							onClick={() => open()}
-							className='bg-grey-1 text-white'
+							className='bg-blue-3 text-white'
 						>
 							<Plus className='h-4 w-4 mr-2' />
 							Upload Image
