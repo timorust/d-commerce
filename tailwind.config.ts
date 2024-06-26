@@ -82,7 +82,7 @@ const config: Config = {
 				'blue-3': '#0077b6',
 				'red-1': '#ff99c8',
 				'green-1': '#2a9d8f',
-				'yellow-1': '#eddea4',
+				'yellow-1': '#d4a373',
 			},
 		},
 	},
