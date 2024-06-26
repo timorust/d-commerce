@@ -1,5 +1,7 @@
+'use client'
+
 import { Trash } from 'lucide-react'
-import React from 'react'
+import React, { useState } from 'react'
 
 import {
 	AlertDialog,
@@ -14,7 +16,31 @@ import {
 } from '@/components/ui/alert-dialog'
 
 import { Button } from '../ui/button'
-const Delete = () => {
+import toast from 'react-hot-toast'
+
+interface DeleteProps {
+	id: string
+}
+const Delete: React.FC<DeleteProps> = ({ id }) => {
+	const [loading, setLoading] = useState(false)
+
+	const onDelete = async () => {
+		try {
+			setLoading(true)
+
+			const res = await fetch(`/api/collections/${id}`, { method: 'DELETE' })
+
+			if (res.ok) {
+				setLoading(false)
+				window.location.href = '/collections'
+				toast.success('Collection deleted successfully')
+			}
+		} catch (error) {
+			console.error(error)
+			toast.error('Something went wrong ! Please try again')
+		}
+	}
+
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger>
@@ -36,8 +62,8 @@ const Delete = () => {
 					<AlertDialogCancel className='bg-grey-2 text-white'>
 						Cancel
 					</AlertDialogCancel>
-					<AlertDialogAction className='bg-red-1 text-white'>
-						Continue
+					<AlertDialogAction className='bg-red-1 text-white' onClick={onDelete}>
+						Delete
 					</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
