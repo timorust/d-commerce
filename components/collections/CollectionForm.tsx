@@ -17,8 +17,8 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import ImageUpload from '../custom ui/ImageUpload'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useParams, useRouter } from 'next/navigation'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
 const formSchema = z.object({
@@ -27,30 +27,42 @@ const formSchema = z.object({
 	image: z.string(),
 })
 
-function CollectionForm() {
-	const [loading, setLoading] = useState(false)
+interface CollectionFormProps {
+	initialData?: CollectionType | null
+}
+
+const CollectionForm: React.FC<CollectionFormProps> = ({ initialData }) => {
 	const router = useRouter()
+
+	const [loading, setLoading] = useState(false)
 
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
-		defaultValues: {
-			title: '',
-			description: '',
-			image: '',
-		},
+		defaultValues: initialData
+			? initialData
+			: {
+					title: '',
+					description: '',
+					image: '',
+			  },
 	})
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		try {
 			setLoading(true)
-			const res = await fetch('/api/collections', {
+
+			const url = initialData
+				? `/api/collections/${initialData._id}`
+				: '/api/collections'
+			const res = await fetch(url, {
 				method: 'POST',
 				body: JSON.stringify(values),
 			})
 
 			if (res.ok) {
 				setLoading(false)
-				toast.success(`Collection created successfully`)
+				toast.success(`Collection ${initialData ? 'updated' : 'created'}`)
+				window.location.href = '/collections'
 				router.push('/collections')
 			}
 		} catch (error) {
@@ -118,7 +130,7 @@ function CollectionForm() {
 						<Button
 							type='button'
 							className='bg-red-1 text-white'
-							onClick={() => router.push('/collection')}
+							onClick={() => router.push('/collections')}
 						>
 							Discard
 						</Button>
