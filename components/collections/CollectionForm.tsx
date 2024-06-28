@@ -20,6 +20,7 @@ import ImageUpload from '../custom ui/ImageUpload'
 import { useParams, useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
+import Delete from '../custom ui/Delete'
 
 const formSchema = z.object({
 	title: z.string().min(2).max(50),
@@ -73,7 +74,15 @@ const CollectionForm: React.FC<CollectionFormProps> = ({ initialData }) => {
 
 	return (
 		<div className='p-10'>
-			<p className='text-heading2-bold'>Collection Form</p>
+			{initialData ? (
+				<div className='flex items-center justify-between'>
+					<p className='text-heading2-bold'>Edit Collection</p>
+					<Delete id={initialData._id} />
+				</div>
+			) : (
+				<p className='text-heading2-bold'>Create Collection</p>
+			)}
+
 			<Separator className='bg-grey-1 mt-4 mb-7' />
 
 			<Form {...form}>

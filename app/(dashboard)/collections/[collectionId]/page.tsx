@@ -1,13 +1,15 @@
-import CollectionForm from '@/components/collections/CollectionForm'
+'use client'
+
 import Loader from '@/components/custom ui/Loader'
 import { useEffect, useState } from 'react'
+import CollectionForm from '@/components/collections/CollectionForm'
 
 const CollectionDetails = ({
 	params,
 }: {
 	params: { collectionId: string }
 }) => {
-	const [loading, setLoading] = useState(false)
+	const [loading, setLoading] = useState(true)
 	const [collectionDetails, setCollectionDetails] =
 		useState<CollectionType | null>(null)
 
