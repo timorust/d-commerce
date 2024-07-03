@@ -121,6 +121,9 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
 		}
 	}
 
+	console.log('Initial data', initialData)
+	console.log('ICollections', collections)
+
 	return loading ? (
 		<Loader />
 	) : (

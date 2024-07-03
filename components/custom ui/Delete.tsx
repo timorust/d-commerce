@@ -15,7 +15,7 @@ import {
 	AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
 
-import { Button } from '../ui/button'
+import { Button } from '@/components/ui/button'
 import toast from 'react-hot-toast'
 
 interface DeleteProps {
