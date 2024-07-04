@@ -1,4 +1,3 @@
-import Collections from '@/app/(dashboard)/collections/page'
 import Collection from '@/lib/models/Collection'
 import Product from '@/lib/models/Product'
 import { connectedToDB } from '@/lib/mongoDB'
@@ -11,10 +10,12 @@ export const GET = async (
 	try {
 		await connectedToDB()
 
-		const product = await Product.findById(params.productId).populate({
+		let product = await Product.findById(params.productId).populate({
 			path: 'collections',
 			model: Collection,
 		})
+
+		console.log(product)
 
 		if (!product) {
 			return new NextResponse(

@@ -3,7 +3,6 @@
 import { ColumnDef } from '@tanstack/react-table'
 import Delete from '../custom ui/Delete'
 import Link from 'next/link'
-import { Collection } from 'mongoose'
 
 export const columns: ColumnDef<ProductType>[] = [
 	{

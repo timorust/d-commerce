@@ -121,9 +121,6 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
 		}
 	}
 
-	console.log('Initial data', initialData)
-	console.log('ICollections', collections)
-
 	return loading ? (
 		<Loader />
 	) : (
@@ -350,13 +347,13 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
 					</div>
 
 					<div className='flex gap-10'>
-						<Button type='submit' className='bg-green-1 text-white'>
+						<Button type='submit' className='bg-blue-1 text-white'>
 							Submit
 						</Button>
 						<Button
 							type='button'
 							onClick={() => router.push('/products')}
-							className='bg-red-1 text-white'
+							className='bg-blue-1 text-white'
 						>
 							Discard
 						</Button>

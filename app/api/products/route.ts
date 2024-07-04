@@ -1,8 +1,8 @@
+import Collection from '@/lib/models/Collection'
 import Product from '@/lib/models/Product'
 import { connectedToDB } from '@/lib/mongoDB'
 import { auth } from '@clerk/nextjs/server'
 import { NextRequest, NextResponse } from 'next/server'
-import toast from 'react-hot-toast'
 
 export const POST = async (req: NextRequest) => {
 	try {
@@ -44,6 +44,16 @@ export const POST = async (req: NextRequest) => {
 		})
 
 		await newProduct.save()
+
+		if (collections) {
+			for (const collectionId of collections) {
+				const collection = await Collection.findById(collectionId)
+				if (collection) {
+					collection.products.push(newProduct._id)
+					await collection.save()
+				}
+			}
+		}
 
 		return NextResponse.json(newProduct, { status: 200 })
 	} catch (error) {

@@ -9,6 +9,11 @@ const ProductDetails = ({ params }: { params: { productId: string } }) => {
 	const [productDetails, setProductDetails] = useState<ProductType | null>(null)
 
 	const getProductDetails = async () => {
+		if (!params.productId) {
+			console.error('Product ID is not defined')
+			setLoading(false)
+			return
+		}
 		try {
 			const res = await fetch(`/api/products/${params.productId}`, {
 				method: 'GET',
@@ -19,6 +24,7 @@ const ProductDetails = ({ params }: { params: { productId: string } }) => {
 			setLoading(false)
 		} catch (err) {
 			console.log('[productId_GET]', err)
+			setLoading(true)
 		}
 	}
 
