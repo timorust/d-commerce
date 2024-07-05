@@ -2,7 +2,6 @@ import Collection from '@/lib/models/Collection'
 import Product from '@/lib/models/Product'
 import { connectedToDB } from '@/lib/mongoDB'
 import { auth } from '@clerk/nextjs/server'
-import { Connection } from 'mongoose'
 import { NextRequest, NextResponse } from 'next/server'
 import toast from 'react-hot-toast'
 
@@ -13,7 +12,10 @@ export const GET = async (
 	try {
 		await connectedToDB()
 
-		const collection = await Collection.findById(params.collectionId)
+		const collection = await Collection.findById(params.collectionId).populate({
+			path: 'products',
+			model: Product,
+		})
 
 		if (!collection) {
 			return new NextResponse(
